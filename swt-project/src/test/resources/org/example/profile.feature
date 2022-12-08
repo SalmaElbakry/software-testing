@@ -1,4 +1,4 @@
-Feature: Book a hotel
+Feature: Update profile
 
   Background:
     Given the login page is opened
