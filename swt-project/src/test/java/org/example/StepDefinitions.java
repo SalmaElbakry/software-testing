@@ -2,6 +2,11 @@ package org.example;
 
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.junit.Assert.assertEquals;
 
 public class StepDefinitions extends AbstractStepdefs{
 
@@ -21,7 +26,8 @@ public class StepDefinitions extends AbstractStepdefs{
 
     @Then("a {string} message is shown")
     public void aMessageIsShown(String welcome) {
-        Assert.assertEquals(welcome, homePage.msgShown());
-    }
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div/div[2]/div/div[2]/span")));
+        assertEquals(welcome, driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/div/div[2]/span")).getText());    }
 
 }

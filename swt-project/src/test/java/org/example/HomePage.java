@@ -7,6 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class HomePage {
     private static final String PAGE_URL = "https://phptravels.net/login";
@@ -26,20 +31,21 @@ public class HomePage {
     private WebElement email;
     @FindBy (xpath = "//*[@id=\"fadein\"]/div[4]/div/div[2]/div[2]/div/form/div[2]/div[1]/input")
     private WebElement password;
-    @FindBy(xpath = "/html/body/div[4]/div/div[2]/div[2]/div/form/div[3]/button")
+    @FindBy (xpath = "//*[@id=\"fadein\"]/div[4]/div/div[2]/div[2]/div/form/div[3]/button/span[1]")
     private WebElement signInButton;
-    @FindBy (className="breadcrumb-content")
+    @FindBy (xpath ="/html/body/div[4]/div/div[2]/div/div[2]/span")
     private WebElement welcome;
 //hotel
     @FindBy (xpath = "/html/body/header/div/div/div/div/div/div[2]/div/div[1]/nav/ul/li[1]/a")
     private WebElement hotel_hyper;
-    @FindBy (xpath = "//*[@id=\"fadein\"]/section[2]/div/div/div[2]/div/div/div/div[1]/div/div[8]/div/div[2]/h6/a")
+    @FindBy (xpath = "/html/body/section[2]/div/div/div[2]/div/div/div/div[1]/div/div[8]/div/div[2]/h6/a")
     private WebElement hotel_choice;
-    @FindBy (xpath = "/html/body/section[1]/div[3]/div/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/form/div/div[5]/div/button")
+    @FindBy (xpath = "/html/body/section[1]/div[3]/div/div/div/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/form/div/div[5]/div/button")
     private WebElement book_hotel;
 
 //flight
-    @FindBy (xpath = "/html/body/header/div/div/div/div/div/div[2]/div/div[1]/nav/ul/li[2]/a")
+    @FindBy (xpath = "/html/body/header/div/div/div/div/div/div[2]/div/div[1]/nav/ul/li[2]")
+//        @FindBy (className = "active_flights waves-effect") both not working
     private WebElement flight_hyper;
     @FindBy (xpath = "//*[@id=\"new-york\"]/div/div[4]/a/div/div/div[2]")
     private WebElement flight_choice;
@@ -70,8 +76,11 @@ public class HomePage {
     @FindBy(xpath = "//*[@id=\"fadein\"]/section[1]/div/div[2]/div/div[1]/div/div/div[2]/form/div[3]/button")
     private WebElement update;
 
-    @FindBy(xpath = "//*[@id=\"fadein\"]/section[1]/div/div[2]/div/div[1]/div/div/div[2]/form/div[1]/div")
+    @FindBy(xpath = "/html/body/section[1]/div/div[2]/div/div[1]/div/div/div[2]/form/div[1]/div/text()")
     private WebElement profile_msg;
+
+    @FindBy (xpath = "/html/body/div[4]/div/div[3]/ul/li[5]/a")
+    private WebElement logout;
 
     private WebDriver driver;
 
@@ -101,15 +110,19 @@ public class HomePage {
     public void clickHotelLink(){
         hotel_hyper.click();
     }
+/*
+    public void cityName(){
+    }*/
 
-    public void clickMarriottHotel(){
-       hotel_choice.click();
+    public void clickHotelName(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"fadein\"]/section[2]/div/div/div[2]/div/div/div/div[1]/div/div[7]/div/div[1]/a/img"))).click();
     }
 
     public void clickBookNowButton(){
-        book_hotel.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/section[1]/div[3]/div/div/div/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/form/div/div[5]/div/button"))).click();
     }
-
 
     public void clickFlightLink(){
         tour_hyper.click();
@@ -128,9 +141,22 @@ public class HomePage {
         tour_book.click();
     }
     public void clickProfileLink(){profile_hyper.click();}
-    public void clickUpdateProfile(){ update.click();}
+    public void clickUpdateProfile(){
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(update).click();
+//        update.click();
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"cookie_stop\"]"))).click();
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/section[1]/div/div[2]/div/div[1]/div/div/div[2]/form/div[3]/button"))).click();
+    }
     public String getProfileMsg() {
         return profile_msg.getText();
     }
+
+    public void clickLogoutButton() {
+        logout.click();
+    }
 }
+
 

@@ -35,4 +35,9 @@ public class ProfileStepdefs extends AbstractStepdefs{
     public void profileUpdatedSuccessfullyIsShown(String message) {
         Assert.assertEquals(message, homePage.getProfileMsg());
     }
+
+    @Then("Click Log out button")
+    public void clickLogOutButton() {
+        homePage.clickLogoutButton();
+    }
 }
